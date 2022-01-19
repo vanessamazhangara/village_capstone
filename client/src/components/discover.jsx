@@ -17,7 +17,8 @@ class Discover extends Component {
         cardImage: "https://images.unsplash.com/photo-1595550891383-152fbed0f9bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZWRpdG9yaWFsJTIwcG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60",
         portfolioPic:"https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60", 
         tags: ['maternity ', 'editorial'], 
-        profilePic:""
+        profilePic:"",
+        liked: true,
     },
         { 
         id: 2, 
@@ -26,7 +27,8 @@ class Discover extends Component {
         cardImage: "https://images.unsplash.com/photo-1595550891383-152fbed0f9bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZWRpdG9yaWFsJTIwcG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60",
         portfolioPic:"https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60", 
         tags: ['maternity ', 'editorial'], 
-        profilePic:""
+        profilePic:"",
+        liked: true,
     },
         { 
         id: 3, 
@@ -35,7 +37,8 @@ class Discover extends Component {
         cardImage: "https://images.unsplash.com/photo-1595550891383-152fbed0f9bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZWRpdG9yaWFsJTIwcG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60" ,
         portfolioPic:"https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60", 
         tags: ['maternity ', 'editorial'], 
-        profilePic:""
+        profilePic:"",
+        liked: true,
     }
     ],
     };
@@ -45,12 +48,20 @@ class Discover extends Component {
     this.setState({ input });
   };
 
+  handleLike = portfolio => {
+    const portfolios = [...this.state.portfolios];
+    const index = portfolios.indexOf(portfolio);
+     portfolios[index] = {...portfolios[index] };
+    portfolios[index].liked = !portfolios[index].liked;
+    this.setState( { portfolios })
+  }
+
   render() {
       const { portfolios } = this.state;
 
       let galleryDisplay = portfolios.map(portfolio => {
         return <PortfolioCard index={portfolio.id}>
-        <Link to="/portfoliopage/name">
+        <Link to="">
             <PortfolioCardImage src={portfolio.cardImage} alt="portfolio image" />
          </Link>
         <Overlay>
@@ -61,7 +72,7 @@ class Discover extends Component {
                 return <span>{tag}</span>
             })}</div>
           </div>
-          <Like liked={true} />
+          <Like liked={portfolio.liked} toggleLike={() => this.handleLike(portfolio)}/>
         </Overlay>
       </PortfolioCard>
       });
