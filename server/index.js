@@ -23,7 +23,7 @@ app.use('/photographers', photographerRoutes); "localhost:6500/photogphers"
 app.use('/reviews', reviewRoutes);
 app.use('/photos', photoRoutes);
 app.use('/tags', tagRoutes );
-app.use('/message', msgRouters);
+app.use('/messages', msgRouters);
 
 app.get('/', (req, res) => {
     res.send('api is running')

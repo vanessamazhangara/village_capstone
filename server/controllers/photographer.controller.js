@@ -15,6 +15,30 @@ module.exports = {
     res.json(photographer[0][0]);
   },
 
+  login: async (req, res) => {
+    // const { photographer } = req.params;
+    try {
+      const photographer = await sequelize.query(`
+        SELECT * FROM photographers WHERE  email = '${req.body.email}'`);
+        if(!photographer) {
+          res.status(404).json({"message": "email not valid!"})
+        }
+        if(photographer[0][0].password === req.body.password) {
+          res.json(photographer[0][0])
+        }
+        else {
+          res.status(404).json({"message": "invalid credentials!"})
+        }
+      
+    } catch (error) {
+      res.status(500).json(error)
+    }
+    
+  
+  },
+
+
+
   createPhotographer: async (req, res) => { 
     //   console.log(req.body, "++++++++++++++++++++++++++++++++++++++++++++++");
     const {
@@ -53,4 +77,6 @@ module.exports = {
     WHERE id = ${req.params.id};`);
     res.json({"message":"details updated!"})
   },
+
+ 
 };

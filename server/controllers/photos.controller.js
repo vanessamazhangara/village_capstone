@@ -8,8 +8,8 @@ module.exports = {
     },
 
     createPhoto: async (req, res) => {
-        // const { id } = req.params;
-        const {imageUrl, id } = req.body;
+        const { id } = req.params; //how come it doesn't take in the params?
+        const {imageUrl } = req.body;
         const newPhoto = await sequelize.query(`
         INSERT INTO photos (image_url, photographer_id)
         VALUES (
@@ -26,10 +26,10 @@ module.exports = {
 
     portfolio: async (req, res) => {
         const portfolio = await sequelize.query(`
-        SELECT image_url, photographer_id
+        SELECT * 
         FROM photos
-        INNER JOIN photographers ON photographer_id = ${req.params.id}`);
-        res.status(200).json(portfolio);
+        INNER JOIN photographers ON photos.photographer_id = photographers.id`);
+        res.status(200).json(portfolio[0]);
     },
 
 
