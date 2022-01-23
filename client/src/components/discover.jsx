@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Like from "./common/like";
 import { PortfolioCard, PortfolioCardImage, Overlay} from '../styles/discover.style'
@@ -10,38 +11,18 @@ class Discover extends Component {
     this.state = {
       input: "",
       portfolios: [
-        { 
-        id: 1, 
-        firstName:'Jay', 
-        lastName: 'Tee', 
-        cardImage: "https://images.unsplash.com/photo-1595550891383-152fbed0f9bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZWRpdG9yaWFsJTIwcG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60",
-        portfolioPic:"https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60", 
-        tags: ['maternity ', 'editorial'], 
-        profilePic:"",
-        liked: true,
-    },
-        { 
-        id: 2, 
-        firstName:'Jay', 
-        lastName: 'Tee', 
-        cardImage: "https://images.unsplash.com/photo-1595550891383-152fbed0f9bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZWRpdG9yaWFsJTIwcG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60",
-        portfolioPic:"https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60", 
-        tags: ['maternity ', 'editorial'], 
-        profilePic:"",
-        liked: true,
-    },
-        { 
-        id: 3, 
-        firstName:'Jay', 
-        lastName: 'Tee',
-        cardImage: "https://images.unsplash.com/photo-1595550891383-152fbed0f9bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZWRpdG9yaWFsJTIwcG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60" ,
-        portfolioPic:"https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60", 
-        tags: ['maternity ', 'editorial'], 
-        profilePic:"",
-        liked: true,
-    }
-    ],
+      
+      ],
+   
     };
+
+  }
+
+  componentDidMount() {
+    axios.get('https://localhost:6500/photos')
+    .then((res) => {
+      console.log(res.data)
+    })
   }
 
   handleSearchChange = (input) => {
