@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const PortfolioCard = styled.div`
 
-    margin: 50px;
+    margin: 10px;
 img {
     position: relative;
     width: 300px;
@@ -36,5 +36,13 @@ img {
     width: 50px;
     height: 50px;
     margin-right: 10px;
+
 }
 `
+
+export const Section = styled.section`
+
+display: flex;
+flex: flex-wrap;
+max-width: 400px;
+margin: 50px;`

@@ -6,7 +6,7 @@ import React, { Component } from "react";
 
 class Like extends Component {
    state = {
-       like: 0,
+       like: null,
    }
 
    addLike = () => {
@@ -21,13 +21,15 @@ class Like extends Component {
     if (!this.props.liked) classes += "-o";
 
     return (
+      <>
       <i
         onClick={this.addLike}
         onClick={this.props.toggleLike}
-        style={{ cursor: "pointer" }}
+        style={{ cursor: "pointer", color: "#DF345D"}}
         className={classes}
         aria-hidden="true"
-      >{this.state.like}</i>
+      ></i>
+      </>
     );
   }
 }
