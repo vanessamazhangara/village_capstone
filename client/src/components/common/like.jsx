@@ -12,7 +12,7 @@ class Like extends Component {
    addLike = () => {
     let newCount = this.state.like + 1;
       this.setState({
-      likes: newCount
+      like: newCount
     });
 
   };

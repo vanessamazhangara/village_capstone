@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+import SideBar from "./sideBar";
+import Gallery from "./gallery";
+import Reviews from "./reviews";
+import { Route} from "react-router-dom";
+
 import {
   Header,
   Left,
@@ -8,7 +13,6 @@ import {
   MessageBtn,
   Right,
   Section,
-  Nav
 } from "../styles/discoverInfo.style";
 import Like from "./common/like";
 
@@ -20,6 +24,8 @@ class DiscoverInfo extends Component {
 
     this.state = {
       photographer: {},
+      reviews: [],
+      gallery: [],
     };
   }
 
@@ -59,10 +65,10 @@ class DiscoverInfo extends Component {
               <MessageBtn>{`Message, ${photographer.first_name}`}</MessageBtn>
             </Left>
             <Right>
-              <Nav>
-                <li>Gallery</li>
-                <li>Collections</li>
-              </Nav>
+            <SideBar />
+                <Route path={`/discover/gallery`} component={Gallery} />
+                <Route path={`/discover/reviews`} component={Reviews}/>
+           
 
               {/* <div class="row gallery">
               <div class="col-md-4">

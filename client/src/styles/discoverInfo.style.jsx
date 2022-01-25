@@ -83,9 +83,11 @@ display: flex;`
 
 export const Nav = styled.nav`
     display: inline-flex;
+    
+Link {
     text-decoration: none;
-  
-  li {
+} 
+  li  {
     margin: 40px 30px 0 10px;
     cursor: pointer;
     font-size: 13pt;

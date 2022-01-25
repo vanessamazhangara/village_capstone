@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Like from "./common/like";
-import { PortfolioCard, PortfolioCardImage, Overlay, Section} from '../styles/discover.style'
+import { PortfolioCard, PortfolioCardImage, Overlay, Section, H1, Input} from '../styles/discover.style'
 
 class Discover extends Component {
   constructor() {
@@ -64,13 +64,13 @@ class Discover extends Component {
     return (
       <>
         <div>
-          <input
+          <Input
             value={this.state.input}
             placeholder="search"
             onChange={(e) => this.handleSearchChange(e.target.value)}
           />
         </div>
-        <h1>portfolios</h1>
+        <H1>Portfolios</H1>
         <Section>
           {galleryDisplay}
         </Section>
