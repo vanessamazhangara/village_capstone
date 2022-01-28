@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SideBar from "./sideBar";
 import Gallery from "./gallery";
 import Reviews from "./reviews";
+import Modal from "./common/modal";
 import { Route} from "react-router-dom";
 
 import {
@@ -13,6 +14,7 @@ import {
   MessageBtn,
   Right,
   Section,
+  Main,
 } from "../styles/discoverInfo.style";
 import Like from "./common/like";
 
@@ -26,6 +28,8 @@ class DiscoverInfo extends Component {
       photographer: {},
       reviews: [],
       gallery: [],
+      showModal: false,
+      
     };
   }
 
@@ -34,15 +38,46 @@ class DiscoverInfo extends Component {
       .get(`http://localhost:6500/photographers/${this.props.match.params.id}`)
       .then((res) => {
         console.log(res.data);
-        this.setState({ photographer: res.data });
+        const photographer = {
+            id: res.data[0].photographer_id,
+            avatar: res.data[0].avatar ,
+            first_name: res.data[0].first_name ,
+            last_name: res.data[0].last_name ,
+            city: res.data[0].city,
+            state: res.data[0].state,
+            website: res.data[0].website,
+        }
+        this.setState({ photographer });
+        const photos = res.data.map(photo => {
+            return {id: photo.id, image_url: photo.image_url}
+        })
+        this.setState({gallery: photos})
+      })
+      .catch((err) => console.log(err));
+
+      await axios.get(`http://localhost:6500/reviews/${this.props.match.params.id}`)
+      .then((res) => {
+        console.log(res.data);
+        this.setState({reviews: res.data})
       })
       .catch((err) => console.log(err));
   }
+
+  openModal = () => {
+    this.setState({showModal: true})
+  }
+
+  closeModal = () => {
+    this.setState({showModal: false})
+  }
+
+  
+
   render() {
-    const { photographer } = this.state;
+    const { photographer, gallery, reviews } = this.state;
     return (
       <>
-        <main>
+        <Main>
           <Header></Header>
           <Section>
             <Left>
@@ -65,9 +100,9 @@ class DiscoverInfo extends Component {
               <MessageBtn>{`Message, ${photographer.first_name}`}</MessageBtn>
             </Left>
             <Right>
-            <SideBar />
-                <Route path={`/discover/gallery`} component={Gallery} />
-                <Route path={`/discover/reviews`} component={Reviews}/>
+            <SideBar id={photographer.id} />
+                <Route path={`/discover/:id/gallery`} render={(props) => < Gallery {...props} gallery={gallery} /> } />
+                <Route path={`/discover/:id/reviews`} render={(props) => <Reviews  openModal={this.openModal} {...props} reviews={reviews}/>  }/>
            
 
               {/* <div class="row gallery">
@@ -92,7 +127,8 @@ class DiscoverInfo extends Component {
             </div> */}
             </Right>
           </Section>
-        </main>
+        </Main>
+        {this.state.showModal && <Modal closeModal={this.state.closeModal} userId={photographer.id} />}
       </>
     );
   }

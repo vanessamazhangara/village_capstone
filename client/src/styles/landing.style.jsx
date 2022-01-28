@@ -39,19 +39,52 @@ p {
 }
 
 button {
-    border-radius: 10px;
-    border: 5px solid #DBAD62;
-    cursor: pointer;
-    width: 200px;
-    heigth: 25px;
-    font-size: 18px;
-    background: none;
-    color: #DBAD62;
+//     border-radius: 10px;
+//     border: 5px solid #DBAD62;
+//     cursor: pointer;
+//     width: 200px;
+//     heigth: 25px;
+//     font-size: 18px;
+//     background: none;
+//     color: #DBAD62;
    
 
+// }
+
+
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  width: 200px;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
 button:hover {
-    transform: scale(0.98);
+  background-color: #fff;
+  transform: scale(0.98);
+}
+
+button:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  .button-74 {
+    min-width: 120px;
+    padding: 0 25px;
+  }
 }
 `

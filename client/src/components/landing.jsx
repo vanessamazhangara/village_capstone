@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Main, Container, ContainerTwo } from '../styles/landing.style';
 
 class Landing extends Component {
@@ -14,7 +15,9 @@ class Landing extends Component {
                     <h1>Discover and hire local photographers in your area.</h1>
                     <p>Photographers, sign up today and begin booking sessions in your city! </p>
                 </div>
-                <button>Sign Up</button>
+                <button>
+                    <Link to="/signup" style={{ textDecoration: 'none', color: '#DBAD62' }}>Sign Up</Link>
+                </button>
                 </ContainerTwo>
             </Main>
         );

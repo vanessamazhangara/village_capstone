@@ -4,15 +4,16 @@ import { Link } from "react-router-dom";
 
 
 
-const SideBar = () => {
+const SideBar = (props) => {
+    const { id } = props
     return (   
     
     <Nav>
         <li>
-            <Link to={`/discover/gallery`} style={{ textDecoration: 'none', color: "#888" }}>Gallery</Link>
+            <Link to={`/discover/${id}/gallery/`} style={{ textDecoration: 'none', color: "#888" }}>Gallery</Link>
         </li>
         <li>
-           <Link to={`/discover/reviews`} style={{ textDecoration: 'none', color: "#888"  }}>Reviews</Link>
+           <Link to={`/discover/${id}/reviews`} style={{ textDecoration: 'none', color: "#888"  }}>Reviews</Link>
         </li>
      </Nav> );
 }

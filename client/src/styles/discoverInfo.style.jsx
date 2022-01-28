@@ -58,20 +58,46 @@ p {
 }`
 
 export const MessageBtn = styled.button`
-width: 200px;
-    height: 35px;
-    border: 5px solid black;
-    cursor: pointer;
-    border-radius: 15px;
-    background-color: none;
-    margin: 15px;
-    font-size: 16px;
-    font-weight: 700;
+// width: 200px;
+//     height: 35px;
+//     border: 5px solid black;
+//     cursor: pointer;
+//     border-radius: 15px;
+//     background-color: none;
+//     margin: 15px;
+//     font-size: 16px;
+//     font-weight: 700;
 
-    &:hover {
-        opacity: 0.9;
-        transform: scale(0.95);
-    }
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+
+&:hover {
+  background-color: #fff;
+  transform: scale(0.95);
+}
+
+&:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+
+
 `
 
 export const Right = styled.div`
@@ -102,3 +128,6 @@ Link {
     color: #999;
     border-bottom: 2px solid #999;
   }`
+
+  export const Main = styled.main`
+  position: relative;`
