@@ -97,22 +97,9 @@ flex-direction: column;
 height: 10%;
 `
 
-export const Greeting = styled.nav`
-display: flex;
-justify-content: space-between;
-align-items: center;
-height: 10%;
-margin-left: 300px;
-`;
 
-export const Text = styled.h1`
-  span {
-    font-weight: 500;
-    color: #484258;
-  }
- 
-  
-`;
+
+
 
 export const Account = styled.div`
 margin-left: 350px;

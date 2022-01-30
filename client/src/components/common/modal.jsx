@@ -19,32 +19,26 @@ class Modal extends Component {
       });
   }
 
-
-  submitReview = async (e) => {
-      
-    await axios.post(`http://localhost:6500/reviews/${this.props.userId}`, {
-        
+  handleSubmit = (e) => {
+      e.preventDefault()
+      this.props.submitReview( {
         review: this.state.review,
         title: this.state.title,
         name: this.state.name,
-        photographerId: `${this.props.userId}`
-    })
-    .then((res) => {
-        console.log(res.data)
-    })
-    .catch(err => console.log(err))
-  };
-
-  async componentDidUpdate() {
-      axios.get(`http://localhost:6500/reviews/${this.props.userId}`)
+      })
   }
 
+
+
+  
+
   render() {
-    const { closeModal } = this.props;
+    const { closeModal, } = this.props;
     return (
       <ModalStyle>
-        <Form onSubmit={this.submitReview}>
+        <Form onSubmit={this.handleSubmit}>
           <button onClick={closeModal}><i className="fa fa-window-close" aria-hidden="true"></i></button>
+
           <div>
             <label>Title</label>
             <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/>

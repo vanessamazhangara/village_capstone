@@ -16,7 +16,7 @@ class Reviews extends Component {
           return (
             <Card key={review.id}>
               <h3>{review.title}</h3> 
-              <span>{`from  ${review.name}`}</span>
+              <span>{`${review.name}`}</span>
               <p>
                 {review.review}
               </p>

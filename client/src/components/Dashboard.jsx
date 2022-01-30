@@ -15,16 +15,18 @@ import React, { Component } from "react";
 //   Info,
 //   UpdateBtn,
 // } from "../styles/dashboard.style";
-import {Container} from '../styles/userDashboard.styles';
+import {Container, Greeting, Text} from '../styles/userDashboard.styles';
 import Dashbar from "./dashBar";
 import { Route } from "react-router-dom";
-import DashAccount from "./dashContent";
+import DashAccount from "./dashAccount";
 import DashReviews from "./dashReviews";
 
 
 class Dashboard extends Component {
   state = {
       loginUser: {},
+      loginReviews: [],
+      updateReceived: 0,
   };
 
   async componentDidMount() {
@@ -32,14 +34,54 @@ class Dashboard extends Component {
       axios.get(`http://localhost:6500/photographers/${JSON.parse(localStorage.getItem(`villageUser`)).id}`)
       .then(res => {
           console.log(res.data[0])
-          this.setState({loginUser: res.data[0]})
+          this.setState({loginUser: res.data[0]})//make fetch method.
+      })
+      .catch(err => console.log(err));
+
+      this.fetchReviews()
+      
+      
+  }
+
+  fetchReviews = async () => {
+    await axios.get(`http://localhost:6500/reviews/${JSON.parse(localStorage.getItem(`villageUser`)).id}`)
+      .then(res => {
+          console.log(res.data)
+          this.setState({loginReviews: res.data})
       })
   }
+
+  // submitAccUpdated (data) {
+      //axios.put
+      //res will increment request recived
+      //then pass method toDash Acc
+      //Dash Acc will have own handleSubmit fxn
+
+      submitAccountUpdate = (data) => {
+      axios.put(`http://localhost:6500/photographers/${JSON.parse(localStorage.getItem(`villageUser`)).id}`, {
+          city: data.city,
+          state: data.state,
+      })
+      .then(res => {
+          console.log(res.data)
+            this.setState({updateReceived: this.state.updateReceived + 1})
+            
+      })
+
+      
+      }
+    
+      async componentDidUpdate(prevProps, prevState ) {
+        if(prevState.updateReceived !== this.state.updateReceived) {
+          this.fetchReviews()
+        }
+    }
+
   render() {
     // if(!this.props.user) {
     //     return <Redirect to='/'/>
     // }
-    const {loginUser} = this.state;
+    const {loginUser, loginReviews} = this.state;
     return (
       
         //  <Main> 
@@ -89,9 +131,10 @@ class Dashboard extends Component {
       
 
       <Container>
+             
           <Dashbar loginUser={loginUser} />
-          <Route path='/dashboard/:id/account' render={(props) => <DashAccount loginUser={loginUser} {...props} />} />
-          <Route path='/dashboard/:id/reviews' render={(props) => <DashReviews loginUser={loginUser} {...props} />} />
+          <Route path='/dashboard/:id/account' render={(props) => <DashAccount submitAccount={this.submitAccountUpdate} loginUser={loginUser} {...props} />} />
+          <Route path='/dashboard/:id/reviews' render={(props) => <DashReviews loginUser={loginUser} loginReviews={loginReviews} {...props} />} />
          
           
 

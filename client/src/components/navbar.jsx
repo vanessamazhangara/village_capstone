@@ -25,7 +25,16 @@ const Navbar = (props) => {
       </ul>
       {user ? (
         <>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link
+            to="/dashboard"
+            style={{
+              textDecoration: "none",
+              color: "black",
+              fontWeight: "bold",
+            }}
+          >
+            Dashboard
+          </Link>
           <NavBtn onClick={logOut}>Logout</NavBtn>
         </>
       ) : (

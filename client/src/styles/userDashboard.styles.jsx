@@ -3,8 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   height: 97vh;
-//   background: linear-gradient(to bottom right, white 0%, #e6e4ff 70%);
-  border-radius: 2rem;
+  padding: 1rem;
+  background: linear-gradient(to bottom right, white 0%, #e6e4ff 70%);
+//   border-radius: 2rem;
   `
 
   export const LeftBar = styled.div`
@@ -75,36 +76,94 @@ flex-direction: column;
 margin-top: -25px;
 
 `
+export const Greeting = styled.nav`
+display: flex;
+justify-content: space-between;
+align-items: center;
+height: 10%;
+margin-left: 300px;
+`;
+
+export const Text = styled.h1`
+  span {
+    font-weight: 500;
+    color: #484258;
+  }
+ 
+  
+`;
 //////////////////////////////////////////////////////////
 
-// export const DashContainer = styled.div`
-//   width: 80%;
-//   background: linear-gradient(to bottom right, white 0%, #e6e4ff 70%);
-//   border-bottom-right-radius: 2rem;
-//   border-top-right-radius: 2rem;
-//   margin: 1rem 8rem 1rem 4rem;
-//   @media screen and (min-width: 320px) and (max-width: 1080px) {
-//     display: flex;
-//     flex-direction: column;
-//     width: 100%;
-//     margin: 1rem 0 0 0;
-//   }
-// `;
+export const AccForm = styled.form`
 
-// export const SubContainer = styled.div`
-// margin: 0.5rem 0;
-// height: 80%;
-// width: 100%;
-// display: flex;
-// flex-direction: column;
-// gap: 4rem;
-// @media screen and (min-width: 320px) and (max-width: 1080px) {
-//   height: 100%;
-// }
-// `;
+width: 550px;
+height: 55%;
+margin: 25px;
+color: white;
+margin-left: 100px;
+ background-color: #091322;
+ padding: 1rem;
+ border-radius: 1rem;
 
-// export const Section1 = styled.div`
-// display: flex;
-// justify-content: space-between;
-// height: 40%;
-// ;`
+ div {
+     margin-bottom: 5px;
+     
+ }
+
+ button {
+     margin: 10px;
+     border-radius: 5px;
+ }
+
+ label {
+     font-size: 18px;
+     
+ }
+`
+
+export const InputDiv = styled.div`
+    background-color: transparent;
+    border: 1px solid #bebcc1;
+    // border-bottom-color: #bebcc1;
+    box-shadow:none;
+    font-size: bolder;
+    margin-left: 10px;
+    margin: 10px;
+    padding: 10px;
+    width: 95%;
+}`
+export const Input = styled.input`
+    background-color: transparent;
+    border: 1px solid #bebcc1;
+    color: white;
+    // border-bottom-color: #bebcc1;
+    box-shadow:none;
+    margin: 10px;
+    margin-left: 10px;
+    padding: 8px;
+    width: 95%;
+}`
+
+export const DashCard = styled.div`
+border: 2px solid #ccc;
+  background-color: #091322;
+  box-shadow: grey 4px 4px 0 0;
+  border-radius: 5px;
+  padding: 1px;
+  margin: 10px 0;
+  color: white;
+  margin-left: 100px;
+  
+
+
+  h3, span {
+      display: inline-block;
+      margin: 10px;
+  }
+
+  p {
+      margin-top: 5px;
+      text-align: center;
+  }
+`
+

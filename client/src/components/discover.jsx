@@ -10,9 +10,8 @@ class Discover extends Component {
 
     this.state = {
       input: "",
-      portfolios: [
-      
-      ],
+      filteredPortfolios: [],
+      portfolios: [],
       
     };
    
@@ -22,14 +21,27 @@ class Discover extends Component {
     await axios.get('http://localhost:6500/photos')
     .then(res => {
       console.log(res.data)
-      this.setState({ portfolios: res.data })
+      this.setState({ portfolios: res.data, filteredPortfolios: res.data})
+  
       
     })
     
   }
 
+  searchPortfolio = () => {
+    const updated = this.state.portfolios.filter( image => {
+      return this.state.input.toLowerCase() === image.city.toLowerCase()
+    })
+    this.setState({ filteredPortfolios: updated})
+  }
+
   handleSearchChange = (input) => {
-    this.setState({ input });
+    // this.setState({ input });
+    const updated = this.state.portfolios.filter( image => {
+      return image.city.toLowerCase().includes(input.toLowerCase())
+    })
+    this.setState({ filteredPortfolios: updated})
+
   };
 
   handleLike = portfolio => {
@@ -41,9 +53,9 @@ class Discover extends Component {
   }
 
   render() {
-      const { portfolios } = this.state;
+      const { filteredPortfolios } = this.state;
 
-      let galleryDisplay = portfolios.map(portfolio => {
+      let galleryDisplay = filteredPortfolios.map(portfolio => {
         return <PortfolioCard index={portfolio.photographer_id}>
         <Link to={`/discover/${portfolio.photographer_id}`}>
             <PortfolioCardImage src={portfolio.image_url} alt="portfolio image" />
@@ -65,7 +77,7 @@ class Discover extends Component {
       <>
         <div>
           <Input
-            value={this.state.input}
+            // value={this.state.input}
             placeholder="search"
             onChange={(e) => this.handleSearchChange(e.target.value)}
           />

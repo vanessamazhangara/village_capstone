@@ -64,7 +64,7 @@ class App extends Component {
         <GlobalStyles />
         <Navbar user={this.state.user} logOut={this.logOut}/>
         <Switch>
-          <Route path="/discover/:id" render={(props) => <DiscoverInfo {...props} openModal={this.openModal} />} />
+          <Route path="/discover/:id" render={(props) => <DiscoverInfo {...props} />} />
           <Route path="/discover" component={Discover} />
           <Route path="/dashboard" render={(props) => <Dashboard user={this.state.user} {...props}/>}/>
           <Route path="/login" render={(props) => <Login {...props} user={this.state.user} login={this.login}/>}/>

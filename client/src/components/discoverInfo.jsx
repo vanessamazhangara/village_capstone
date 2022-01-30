@@ -29,6 +29,7 @@ class DiscoverInfo extends Component {
       reviews: [],
       gallery: [],
       showModal: false,
+      requestReceived: 0,
       
     };
   }
@@ -37,12 +38,13 @@ class DiscoverInfo extends Component {
     await axios
       .get(`http://localhost:6500/photographers/${this.props.match.params.id}`)
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data, "PPFGPPGDPF");
         const photographer = {
             id: res.data[0].photographer_id,
             avatar: res.data[0].avatar ,
             first_name: res.data[0].first_name ,
             last_name: res.data[0].last_name ,
+            email: res.data[0].email,
             city: res.data[0].city,
             state: res.data[0].state,
             website: res.data[0].website,
@@ -55,13 +57,23 @@ class DiscoverInfo extends Component {
       })
       .catch((err) => console.log(err));
 
-      await axios.get(`http://localhost:6500/reviews/${this.props.match.params.id}`)
+      this.fetchReviews()
+  }
+
+  async componentDidUpdate(prevProps, prevState ) {
+    if(prevState.requestReceived !== this.state.requestReceived) {
+      this.fetchReviews()
+    }
+}
+
+fetchReviews = async () => {
+  await axios.get(`http://localhost:6500/reviews/${this.props.match.params.id}`)
       .then((res) => {
         console.log(res.data);
         this.setState({reviews: res.data})
       })
       .catch((err) => console.log(err));
-  }
+}
 
   openModal = () => {
     this.setState({showModal: true})
@@ -69,7 +81,27 @@ class DiscoverInfo extends Component {
 
   closeModal = () => {
     this.setState({showModal: false})
+    console.log('CLOSE MODAL')
   }
+
+  submitReview = async (data) => {
+    //   e.preventDefault()
+      
+    await axios.post(`http://localhost:6500/reviews/${this.props.match.params.id}`, {
+        
+        review: data.review,
+        title: data.title,
+        name: data.name,
+        photographerId: `${this.props.match.params.id}`
+    })
+    .then((res) => {
+        console.log(res.data)
+        this.closeModal()
+        this.setState({requestReceived: this.state.requestReceived + 1})
+        
+    })
+    .catch(err => console.log(err))
+  };
 
   
 
@@ -79,56 +111,59 @@ class DiscoverInfo extends Component {
       <>
         <Main>
           <Header></Header>
-          <Section>
-            <Left>
-              <ProfilePic>
-                <img
-                  src={`${photographer.avatar}`}
-                  alt="photographer-profile-pic"
-                />
-              </ProfilePic>
-              <Info>
-                <h4>{`${photographer.first_name} ${photographer.last_name}`}</h4>
-                <p>{`${photographer.city}, ${photographer.state}`}</p>
-                <p>{`${photographer.website}`}</p>
-              </Info>
-              <Social>
-                <Like>Likes</Like>
-                <i className="fa fa-facebook-square" aria-hidden="true"></i>
-                <i className="fa fa-instagram" aria-hidden="true"></i>
-              </Social>
-              <MessageBtn>{`Message, ${photographer.first_name}`}</MessageBtn>
-            </Left>
-            <Right>
-            <SideBar id={photographer.id} />
-                <Route path={`/discover/:id/gallery`} render={(props) => < Gallery {...props} gallery={gallery} /> } />
-                <Route path={`/discover/:id/reviews`} render={(props) => <Reviews  openModal={this.openModal} {...props} reviews={reviews}/>  }/>
-           
-
-              {/* <div class="row gallery">
-              <div class="col-md-4">
-                <img src="https://images.pexels.com/photos/1036371/pexels-photo-1036371.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-              </div>
-              <div class="col-md-4">
-                <img src="https://images.pexels.com/photos/861034/pexels-photo-861034.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-              </div>
-              <div class="col-md-4">
-                <img src="https://images.pexels.com/photos/113338/pexels-photo-113338.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-              </div>
-              <div class="col-md-4">
-                <img src="https://images.pexels.com/photos/5049/forest-trees-fog-foggy.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-              </div>
-              <div class="col-md-4">
-                <img src="https://images.pexels.com/photos/428431/pexels-photo-428431.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-              </div>
-              <div class="col-md-4">
-                <img src="https://images.pexels.com/photos/50859/pexels-photo-50859.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-              </div>
-            </div> */}
-            </Right>
-          </Section>
+          {photographer.first_name ? (
+             <Section>
+             <Left>
+               <ProfilePic>
+                 <img
+                   src={`${photographer.avatar}`}
+                   alt="photographer-profile-pic"
+                 />
+               </ProfilePic>
+               <Info>
+                 <h4>{`${photographer.first_name} ${photographer.last_name}`}</h4>
+                 <p>{`${photographer.city}, ${photographer.state}`}</p>
+                 <p>{`${photographer.website}`}</p>
+               </Info>
+               <Social>
+                 <Like>Likes</Like>
+                 <i className="fa fa-facebook-square" aria-hidden="true"></i>
+                 <i className="fa fa-instagram" aria-hidden="true"></i>
+               </Social>
+               <MessageBtn><a href={`mailto:${photographer.email}`}>{`Message, ${photographer.first_name}`}</a></MessageBtn>
+             </Left>
+             <Right>
+             <SideBar id={photographer.id} />
+                 <Route path={`/discover/:id/gallery`} render={(props) => < Gallery {...props} gallery={gallery} /> } />
+                 <Route path={`/discover/:id/reviews`} render={(props) => <Reviews  openModal={this.openModal} {...props} reviews={reviews}/>  }/>
+            
+ 
+               {/* <div class="row gallery">
+               <div class="col-md-4">
+                 <img src="https://images.pexels.com/photos/1036371/pexels-photo-1036371.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+               </div>
+               <div class="col-md-4">
+                 <img src="https://images.pexels.com/photos/861034/pexels-photo-861034.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+               </div>
+               <div class="col-md-4">
+                 <img src="https://images.pexels.com/photos/113338/pexels-photo-113338.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+               </div>
+               <div class="col-md-4">
+                 <img src="https://images.pexels.com/photos/5049/forest-trees-fog-foggy.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+               </div>
+               <div class="col-md-4">
+                 <img src="https://images.pexels.com/photos/428431/pexels-photo-428431.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+               </div>
+               <div class="col-md-4">
+                 <img src="https://images.pexels.com/photos/50859/pexels-photo-50859.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+               </div>
+             </div> */}
+             </Right>
+           </Section>
+          ) : <h1>loading...</h1>}
+         
         </Main>
-        {this.state.showModal && <Modal closeModal={this.state.closeModal} userId={photographer.id} />}
+        {this.state.showModal && <Modal submitReview={this.submitReview}  closeModal={this.closeModal}  />}
       </>
     );
   }
