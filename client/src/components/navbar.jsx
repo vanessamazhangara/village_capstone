@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Nav, Li, NavBtn } from "../styles/navbar.style";
+import { Nav, Li, NavBtn, Logo } from "../styles/navbar.style";
+import logo from '../logo.png'
 
 const Navbar = (props) => {
   const { user, logOut } = props;
   return (
     <Nav>
       <Link to="/" style={{ textDecoration: "none" }}>
-        <img src="../logo.png" alt="logo" />
+        <Logo src={logo} alt="logo" />
       </Link>
       <ul>
         <Li>

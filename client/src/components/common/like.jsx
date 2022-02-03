@@ -6,29 +6,34 @@ import React, { Component } from "react";
 
 class Like extends Component {
    state = {
-       like: null,
+       loading: false,
    }
 
-   addLike = () => {
-    let newCount = this.state.like + 1;
-      this.setState({
-      like: newCount
-    });
+  
 
-  };
+  handleClick= async () => {
+   if (!this.state.loading) {
+     this.setState({loading: true})
+     await this.props.handleLike()
+     this.setState({loading: false})
+   }
+
+  }
+
   render() {
     let classes = "fa fa-heart";
-    if (!this.props.liked) classes += "-o";
+    if (this.props.liked) classes += "-o";
 
     return (
       <>
       <i
-        onClick={this.addLike}
-        onClick={this.props.toggleLike}
+        
+        onClick={this.handleClick}
         style={{ cursor: "pointer", color: "#DF345D"}}
         className={classes}
         aria-hidden="true"
       ></i>
+      {this.state.loading && <span>adding new like</span>}
       </>
     );
   }

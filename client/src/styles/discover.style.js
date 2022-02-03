@@ -47,7 +47,7 @@ img {
 `
 
 export const Section = styled.section`
-margin: 0 auto;
+margin-left: 95px;
 padding: 50px;
 width: 1200px;
 display: flex;

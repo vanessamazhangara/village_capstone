@@ -12,6 +12,8 @@ class Discover extends Component {
       input: "",
       filteredPortfolios: [],
       portfolios: [],
+      like: 0,
+     
       
     };
    
@@ -23,11 +25,11 @@ class Discover extends Component {
       console.log(res.data)
       this.setState({ portfolios: res.data, filteredPortfolios: res.data})
   
-      
     })
     
   }
 
+  
   searchPortfolio = () => {
     const updated = this.state.portfolios.filter( image => {
       return this.state.input.toLowerCase() === image.city.toLowerCase()
@@ -45,18 +47,44 @@ class Discover extends Component {
   };
 
   handleLike = portfolio => {
-    const portfolios = [...this.state.portfolios];
-    const index = portfolios.indexOf(portfolio);
-     portfolios[index] = {...portfolios[index] };
-    portfolios[index].liked = !portfolios[index].liked;
-    this.setState( { portfolios })
+    // const portfolios = [...this.state.filteredPortfolios];
+    // const index = portfolios.indexOf(portfolio);
+    //  portfolios[index] = {...portfolios[index] };
+    // // portfolios[index].liked = !portfolios[index].liked;
+    // this.setState( { filteredPortfolios: portfolios})
+
+    axios.put(`http://localhost:6500/photographers/${portfolio.id}/like`)
+    .then(res => {
+      console.log(res.data)
+      let newCount = this.state.like + 1;
+      this.setState({
+      like: newCount
+    })
+    console.log(newCount);
+    })
+
+    
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.like !== this.state.like) {
+      console.log('new count added.')
+       axios.get('http://localhost:6500/photos')
+    .then(res => {
+      console.log(res.data)
+      this.setState({ portfolios: res.data, filteredPortfolios: res.data})
+  
+    })
+    }
+  }
+
+  
 
   render() {
       const { filteredPortfolios } = this.state;
 
       let galleryDisplay = filteredPortfolios.map(portfolio => {
-        return <PortfolioCard index={portfolio.photographer_id}>
+        return <PortfolioCard key={portfolio.photographer_id}>
         <Link to={`/discover/${portfolio.photographer_id}`}>
             <PortfolioCardImage src={portfolio.image_url} alt="portfolio image" />
          </Link>
@@ -64,12 +92,9 @@ class Discover extends Component {
           <img className="portfolio-card-pic" src={portfolio.avatar} alt="profile-pic" />
           <div>
             <h2>{`${portfolio.first_name} ${portfolio.last_name}`}</h2>
-            {/* <div>{portfolio.tags.map(tag => {
-                return <span>{tag}</span>
-            })}</div> */}
           </div>
         </Overlay>
-          <span>{portfolio.likes}</span> <Like liked={portfolio.liked} toggleLike={() => this.handleLike(portfolio)}/>
+          <span>{portfolio.likes}</span> <Like  liked={portfolio.liked} handleLike={() => this.handleLike(portfolio)}/>
       </PortfolioCard>
       });
 

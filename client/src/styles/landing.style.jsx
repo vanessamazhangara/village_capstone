@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Main = styled.div`
     display: flex;
-    width: 100vw;
+    // width: 100vw;
     height: 100vh;
     background-color: #1A2D71;
     padding: 50px;
@@ -30,7 +30,7 @@ h1, p, button {
 }
 
 h1 {
-    font-size: 3.3rem;
+    font-size: 3.2rem;
     margin-bottom: 50px;
 }
 

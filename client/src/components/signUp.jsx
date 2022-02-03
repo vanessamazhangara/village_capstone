@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, Main, Left, Right } from "../styles/signUp.style";
+import { Button, Form, Main, Left, Right, Register } from "../styles/signUp.style";
 
 class SignUp extends Component {
   state = {
@@ -94,8 +94,10 @@ class SignUp extends Component {
     ];
     return (
       <>
+        <Register>
         <h1>Register</h1>
-        <p>Please fill in this form to create an account.</p>
+        <p>To create an account, please fill in the form below.</p>
+        </Register>
         <Main>
           <Left>
               {/* <img src="https://images.unsplash.com/photo-1518437042148-3e377ea057df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTA4fHxwaG90b2dyYXBoeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60" /> */}

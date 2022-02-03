@@ -105,7 +105,8 @@ padding: 0 25px 0 25px
 !important;
 `
 export const Section = styled.main`
-display: flex;`
+display: flex;
+height: 500px;`
 
 export const Nav = styled.nav`
     display: inline-flex;
@@ -130,4 +131,6 @@ Link {
   }`
 
   export const Main = styled.main`
-  position: relative;`
+  position: relative;
+  
+  '`

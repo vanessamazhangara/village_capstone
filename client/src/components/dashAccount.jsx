@@ -18,13 +18,15 @@ class DashAccount extends Component {
       });
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault()
-    this.props.submitAccount( {
+    await this.props.submitAccount( {
       city: this.state.city,
       state: this.state.state,
       
     })
+    this.setState({city: '',
+        state: '',})
   }
 
   render() {
@@ -54,11 +56,7 @@ class DashAccount extends Component {
               <button type="submit">
                 Save Changes
               </button>
-           
-
-              <button type="button" class="btn btn-default btn-block">
-                Cancel
-              </button>
+    
            
        
         </AccForm>

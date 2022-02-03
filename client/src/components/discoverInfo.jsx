@@ -130,34 +130,12 @@ fetchReviews = async () => {
                  <i className="fa fa-facebook-square" aria-hidden="true"></i>
                  <i className="fa fa-instagram" aria-hidden="true"></i>
                </Social>
-               <MessageBtn><a href={`mailto:${photographer.email}`}>{`Message, ${photographer.first_name}`}</a></MessageBtn>
+               <MessageBtn><a href={`mailto:${photographer.email}`} style={{textDecoration: "none", color: "black"}}>{`Message, ${photographer.first_name}`}</a></MessageBtn>
              </Left>
              <Right>
              <SideBar id={photographer.id} />
                  <Route path={`/discover/:id/gallery`} render={(props) => < Gallery {...props} gallery={gallery} /> } />
                  <Route path={`/discover/:id/reviews`} render={(props) => <Reviews  openModal={this.openModal} {...props} reviews={reviews}/>  }/>
-            
- 
-               {/* <div class="row gallery">
-               <div class="col-md-4">
-                 <img src="https://images.pexels.com/photos/1036371/pexels-photo-1036371.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-               </div>
-               <div class="col-md-4">
-                 <img src="https://images.pexels.com/photos/861034/pexels-photo-861034.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-               </div>
-               <div class="col-md-4">
-                 <img src="https://images.pexels.com/photos/113338/pexels-photo-113338.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-               </div>
-               <div class="col-md-4">
-                 <img src="https://images.pexels.com/photos/5049/forest-trees-fog-foggy.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-               </div>
-               <div class="col-md-4">
-                 <img src="https://images.pexels.com/photos/428431/pexels-photo-428431.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-               </div>
-               <div class="col-md-4">
-                 <img src="https://images.pexels.com/photos/50859/pexels-photo-50859.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-               </div>
-             </div> */}
              </Right>
            </Section>
           ) : <h1>loading...</h1>}

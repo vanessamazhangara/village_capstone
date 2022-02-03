@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-export const Div = styled.div`
-    
+export const Register = styled.div`
+    margin-left: 45px;
+    margin-bottom: 50px;
   
 `
 

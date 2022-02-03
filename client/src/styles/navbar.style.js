@@ -4,7 +4,9 @@ export const Nav = styled.nav`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 10px;
+    width: 100vw!important;
+    height: 20vh;
+    padding: 0px;
     background-color: #DBAD62;
     
 `
@@ -54,4 +56,7 @@ export const NavBtn = styled.button`
 `
 
 export const Logo = styled.img`
+width: 100px;
+ height: 100px;
+ margin-right: 300px;
 `

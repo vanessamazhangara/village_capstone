@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { ModalStyle, Form } from "../../styles/modal.style";
+import { ModalStyle, Form , Btn} from "../../styles/modal.style";
 
 class Modal extends Component {
   constructor() {
@@ -49,9 +49,9 @@ class Modal extends Component {
           </div>
           <div>
             <label>Review</label>
-            <input type="text" name="review" value={this.state.review} onChange={this.handleChange} />
+            <textarea type="text" rows="4" cols="50" name="review" value={this.state.review} onChange={this.handleChange} /> 
           </div>
-          <button type="submit">Submit!</button>
+          <Btn type="submit">Submit</Btn>
         </Form>
       </ModalStyle>
     );
